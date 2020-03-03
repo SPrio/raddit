@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LinksController < ApplicationController
   before_action :set_link, only: %i[show edit update destroy]
   before_action :authenticate_user!, except: %i[index show]
@@ -10,8 +12,7 @@ class LinksController < ApplicationController
 
   # GET /links/1
   # GET /links/1.json
-  def show
-  end
+  def show; end
 
   # GET /links/new
   def new
@@ -19,8 +20,7 @@ class LinksController < ApplicationController
   end
 
   # GET /links/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /links
   # POST /links.json
@@ -62,14 +62,27 @@ class LinksController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_link
-      @link = Link.find(params[:id])
-    end
+  def upvote
+    @link = Link.find(params[:id])
+    @link.upvote_by current_user
+    redirect_back(fallback_location: root_path)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def link_params
-      params.require(:link).permit(:title, :url)
-    end
+  def downvote
+    @link = Link.find(params[:id])
+    @link.downvote_by current_user
+    redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_link
+    @link = Link.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def link_params
+    params.require(:link).permit(:title, :url)
+  end
 end
