@@ -66,4 +66,6 @@ gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
 gem 'devise'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 gem 'rails-ujs', '~> 0.1.0'
+gem 'record_tag_helper', '~> 1.0'
+gem 'simple_form'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
